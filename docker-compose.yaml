@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+    func-test:
+        image: func-test:dev
+        build:
+          context: ./FunctionApp1
+          dockerfile: Dockerfile
+        ports:
+          - 8026:80
+        environment:
+          - ASPNETCORE_ENVIRONMENT=Development
+          - AZURE_FUNCTIONS_ENVIRONMENT=Development
+          - DOTNET_USE_POLLING_FILE_WATCHER=1
+        volumes:
+          - ./FunctionApp1:/src
