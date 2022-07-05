@@ -6,11 +6,16 @@ services:
         build:
           context: ./FunctionApp1
           dockerfile: Dockerfile
+        init: true
         ports:
-          - 8026:80
+          - 8026:8080
+        restart: on-failure
         environment:
           - ASPNETCORE_ENVIRONMENT=Development
           - AZURE_FUNCTIONS_ENVIRONMENT=Development
           - DOTNET_USE_POLLING_FILE_WATCHER=1
+          - AzureWebJobsScriptRoot=/home/site/wwwroot
+          - AzureFunctionsJobHost__Logging__Console__IsEnabled=true
+          - DOTNET_USE_POLLING_FILE_WATCHER=1
         volumes:
-          - .:/src
+          - ./FunctionApp1:/src/FunctionApp1:delegated
